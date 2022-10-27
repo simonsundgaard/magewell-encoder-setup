@@ -15,7 +15,7 @@
   const userAction_get = async () => {
     var input = document.getElementById('s1').value;
 
-  const response = await fetch('http://localhost:5002/ip/' + input, {
+  const response = await fetch('http://10.2.0.12:5002/ip/' + input, {
     method: 'GET',
   });
   
