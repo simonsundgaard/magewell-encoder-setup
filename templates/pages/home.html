@@ -1,0 +1,34 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1>Magewell no-signal image generator</h1>
+</div>
+<p class="lead">Input the local <code>IP</code> of the magewell encoder and this will generate a no-signal image file, upload it to the magewell at set it active.</p>
+<p> The magewell encoder needs to be on the production network for this to work. </p>
+<p id="status"></p>
+<input placeholder="ip-address [0.0.0.0]" id="s1"></input>
+<button class="btn button" id="thebutton" onclick="userAction_get()"">Create no-signal image file</button>
+
+<script>
+  const userAction_get = async () => {
+    var input = document.getElementById('s1').value;
+
+  const response = await fetch('http://localhost:5002/ip/' + input, {
+    method: 'GET',
+  });
+  
+  const div = document.getElementById('status')
+  if (response["status"]=="200"){
+    console.log("success")
+    div.innerHTML = "Updated the encoder on IP "+input;
+  }
+  if (response["status"]!=200){
+    div.innerHTML = "Something whent wrong - check the server terminal. Error code: "+response["status"];
+  }
+// do something with myJson
+}
+</script>
+
+{% endblock %}
